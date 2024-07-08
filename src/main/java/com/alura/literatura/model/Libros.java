@@ -1,48 +1,43 @@
 package com.alura.literatura.model;
 
-import jakarta.persistence.*;
-
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "libros")
-public class Libros {
+public class Libros{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long Id;
     private String titulo;
-    private int numeroDeDescargas;
-
-    @ManyToOne
-    @JoinColumn(name = "idioma_id")
     private Idioma idioma;
+    private Integer descargas;
+    @ManyToOne
+    private Autores autores;
 
-    @ManyToMany
-    @JoinTable(
-            name = "libro_autor",
-            joinColumns = @JoinColumn(name = "libro_id"),
-            inverseJoinColumns = @JoinColumn(name = "autor_id")
-    )
+    public Libros(){}
 
-    private List<Autores> autores;
-
-    public Libros() {}
-
-    public Libros(DatosLibros datos) {
-        this.titulo = datos.getTitulo();
-        this.numeroDeDescargas = datos.getNumeroDeDescargas();
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "Id=" + Id +
+                ", titulo='" + titulo + '\'' +
+                ", idioma=" + idioma +
+                ", descargas=" + descargas +
+                ", autor=" + autores +
+                '}';
     }
 
-    // Getters y Setters
-
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
-    public String getTitulo() {return titulo;}
-    public void setTitulo(String titulo) {this.titulo = titulo;}
-    public int getNumeroDeDescargas() {return numeroDeDescargas;}
-    public void setNumeroDeDescargas(int numeroDeDescargas) {this.numeroDeDescargas = numeroDeDescargas;}
-    public Idioma getIdioma() {return idioma;}
-    public void setIdioma(Idioma idioma) { this.idioma = idioma; }
-    public List<Autores> getAutores() {return autores;}
-    public void setAutores(List<Autores> autores) {this.autores = autores;}
+    //Getter and setter
+    public Long getId() {return Id;}
+    public void setId(Long id) { Id = id; }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public Idioma getIdioma() { return idioma;}
+    public void setIdioma(Idioma idioma) { this.idioma = idioma;}
+    public Integer getDescargas() { return descargas; }
+    public void setDescargas(Integer descargas) { this.descargas = descargas; }
+    public Autores getAutores() { return autores; }
+    public void setAutores(Autores autores) {this.autores = autores; }
 }

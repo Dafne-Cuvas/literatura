@@ -1,28 +1,14 @@
 package com.alura.literatura.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public class DatosAutores {
-    private String nombre;
-    private String fechaNacimiento;
-    private String fechaFallecimiento;
-
-    // Constructor
-
-    public DatosAutores() {
-    }
-
-    public DatosAutores(String nombre, String fechaNacimiento, String fechaFallecimiento) {
-        this.nombre = nombre;
-        this.fechaNacimiento = fechaNacimiento;
-        this.fechaFallecimiento = fechaFallecimiento;
-    }
-    // Getters y Setters
-
-    public String getNombre() {return nombre; }
-    public void setNombre(String nombre) {this.nombre = nombre;}
-    public String getFechaNacimiento() {return fechaNacimiento; }
-    public void setFechaNacimiento(String fechaNacimiento) {this.fechaNacimiento = fechaNacimiento;  }
-    public String getFechaFallecimiento() {return fechaFallecimiento; }
-    public void setFechaFallecimiento(String fechaFallecimiento) {this.fechaFallecimiento = fechaFallecimiento; }
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record DatosAutores(
+        @JsonAlias("name") String nombre,
+        @JsonAlias("birth_year") Integer nacimiento,
+        @JsonAlias("death_year") Integer fallecimiento
+) {
 }

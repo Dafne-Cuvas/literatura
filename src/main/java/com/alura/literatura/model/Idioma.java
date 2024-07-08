@@ -1,25 +1,23 @@
 package com.alura.literatura.model;
 
-import jakarta.persistence.*;
+public enum Idioma {
+    ES("es"),
+    EN("en"),
+    FR("fr"),
+    PT("pt");
 
-@Entity
-@Table(name = "idioma")
-public class Idioma {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombre;
+    private String idioma;
 
-    public Idioma() {}
+    Idioma(String idioma) {this.idioma = idioma;}
 
-    public Idioma(String nombre) {
-        this.nombre = nombre;
+    public String getIdioma() {return idioma; }
+
+    public static Idioma fromString(String text) {
+        for (Idioma idioma : Idioma.values()) {
+            if (idioma.idioma.equalsIgnoreCase(text)) {
+                return idioma;
+            }
+        }
+        throw new IllegalArgumentException("No se encontro " + text);
     }
-
-    //Getter and setter
-
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
-    public String getNombre() {return nombre;}
-    public void setNombre(String nombre) {this.nombre = nombre; }
 }
